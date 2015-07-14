@@ -1,2 +1,2 @@
 # hbef
-Hierarchical Bayes Ensemble Kalman Filtering
+Hierarchical Bayes Ensemble Kalman Filter
