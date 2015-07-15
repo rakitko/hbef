@@ -1,5 +1,5 @@
 # hbef
-Hierarchical Bayes Ensemble Kalman Filter
+Hierarchical Bayes Ensemble Kalman Filter.
 
 The R package HBEF allows one to carry out numerical experiments with the Hierarchical Bayes Ensemble Kalman Filter (HBEF).
 The HBEF is proposed and described in the paper
