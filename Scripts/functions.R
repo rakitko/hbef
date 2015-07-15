@@ -409,7 +409,7 @@ parameters_hbef <- function(){
   mean_A        <- 6.15             # starting value for the analysis-error variance A
   mean_Q        <- 1.64             # starting value for the model-error variance Q
   approximation <- FALSE            # use the approximated posterior (TRUE) or not (FALSE) ?
-  use_L_o       <- TRUE             
+  use_L_o       <- TRUE             # multiplication by L_o(B) in the posterior: TRUE if yes.
   return(data.frame(theta, size_for_MC, phi, chi, mean_A, mean_Q, approximation, use_L_o))
 }
 
