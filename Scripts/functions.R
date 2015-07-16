@@ -107,6 +107,9 @@ create_parameters_universe_world <- function(){
 }
 
 
+#====================================================================
+# This function updates internal parameters from the external ones.
+
 update_parameters <- function(parameters){
   # Internal (derived) parameters to be used in the model equations
   
