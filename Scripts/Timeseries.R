@@ -18,9 +18,14 @@
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
+# Dependencies:
 #
+# Before running this script, you need to execute the script
+# Calculate_data_for_B_evaluation.R,
+# which writes the time series needed here (see the rows with read.table(.) below).
+# 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
-## 14 July 2015
+## 16 July 2015
 ################################################################################
 library(mixAK)
 library(MCMCpack)
