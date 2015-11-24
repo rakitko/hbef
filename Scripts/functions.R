@@ -12,7 +12,7 @@
 #
 #
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
-## 14 July 2015
+## 24 Nov 2015
 ################################################################################
 # functions.R
 # File with definitions of functions
