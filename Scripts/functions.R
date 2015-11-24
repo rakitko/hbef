@@ -487,24 +487,26 @@ filter_hbef <- function(world, universe, parameters, parameters_hbef){
         Q_a[i] <- (parameters_hbef$chi*parameters_hbef$mean_Q + parameters$N*S_me[i])/(parameters_hbef$chi+parameters$N)
         Q_tilde[i] <- parameters_hbef$mean_Q
         Q_f[i] <- parameters_hbef$mean_Q
+        P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,  scale = Pi_tilde[i] * parameters_hbef$theta/2)
+        L_o <- function(P){
+          T <- P + Q_tilde[i] + parameters$std_eta^2
+          result <- 1/sqrt(T) * exp(-v^2/(2*T))
+        }
+        L_o_samp <- L_o(P_samp)
+        P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
       }else{
         Q_f[i] <- Q_a[i-1]
         Q_tilde[i] <- (parameters_hbef$chi*Q_a[i-1] + parameters$N*S_me[i])/(parameters_hbef$chi+parameters$N)
         Q_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = (parameters_hbef$chi+parameters$N)/2 + 1,  scale = Q_tilde[i] * (parameters_hbef$chi+parameters$N)/2)
-        L_o <- function(Q){
-          T <- Pi_tilde[i] + Q + parameters$std_eta^2
+        P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,               scale = Pi_tilde[i] * parameters_hbef$theta/2)
+        L_o <- function(X){
+          T <- X + parameters$std_eta^2
           result <- 1/sqrt(T) * exp(-v^2/(2*T))
         }
-        L_o_samp <- L_o(Q_samp)
+        L_o_samp <- L_o(Q_samp+P_samp)
         Q_a[i] <- L_o_samp%*%Q_samp / sum(L_o_samp)
+        P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
       }                                            
-      P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,  scale = Pi_tilde[i] * parameters_hbef$theta/2)
-      L_o <- function(P){
-        T <- P + Q_tilde[i] + parameters$std_eta^2
-        result <- 1/sqrt(T) * exp(-v^2/(2*T))
-      }
-      L_o_samp <- L_o(P_samp)
-      P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
     }
 
     if(parameters_hbef$approximation == TRUE && parameters_hbef$use_L_o == TRUE){
