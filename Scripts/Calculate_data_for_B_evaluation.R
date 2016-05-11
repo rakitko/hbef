@@ -13,8 +13,6 @@
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
-# This script creates a number of data files to be used in some other HBEF-package scripts,
-# so it's best to run in first.
 # 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
 ## 10 July 2015
@@ -72,7 +70,7 @@ for(repeat_index in (1:parameters$L)){
   param_hbef$mean_A           <- mean(output_kf$A)
   param_hbef$mean_Q           <- mean(universe$Q)
   output_hbef                 <- filter_hbef(world, universe, parameters, param_hbef)
-
+  
   write.table(world$X[1:parameters$time], file="X_true", row.names=FALSE, col.names=FALSE, append = TRUE)
   write.table(output_kf$X_f[1:parameters$time], file="X_f_kf", row.names=FALSE, col.names=FALSE, append = TRUE)
   write.table(output_var$X_f[1:parameters$time], file="X_f_var", row.names=FALSE, col.names=FALSE, append = TRUE)

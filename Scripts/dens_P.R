@@ -3,20 +3,15 @@
 ## support, and with no warranty, express or implied, as to its usefulness for
 ## any purpose.
 ## 
-# dens_P.R
+## 
 #
-# This file contains the R script that computes the histogram plot and 
-# the approximating Inverse Gamma density for the distribution P|Pi, see Fig.3(right) in the paper
+# 
+#
 #
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
-# Dependencies:
-#
-# Before running this script, you need to execute the script
-# Calculate_data_for_B_evaluation.R,
-# which writes the time series of X_true, X_f_hbef, and Pi needed here.
 # 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
 ## 11 July 2015

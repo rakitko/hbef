@@ -45,7 +45,7 @@ for(i in (1:L)){
   Q_f_mat[i,]     <- Q_f[((1+parameters$time*(i-1)):(parameters$time*i)),1]
   S_me_mat[i,]    <- S_me[((1+parameters$time*(i-1)):(parameters$time*i)),1]
 }
- 
+
 L_range <- c(1,10,25,50,75,100,125,150,175,200)
 
 arr_f_true <- c(1:length(L_range))

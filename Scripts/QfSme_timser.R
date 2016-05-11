@@ -7,7 +7,7 @@
 #
 # This file contains the R script that plots a segment of the time series for:
 # Q^f-Q and S^{me} - Q,
-# see Fig.5(left) in the paper
+# see Fig.6(right) in the paper
 #
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
@@ -31,30 +31,31 @@ t1 <- 3000
 t2 <- 3200
 
 pdf("QfSme_timser.pdf", width=7.48, height=5.51)
-plot(c(t1:t2), output_hbef$Q_a[(t1-1):(t2-1)] - universe$Q[t1:t2], type="l",ylim=c(-1.5,1.5), xlab="Time", ylab="Difference from Q", col="navajowhite3", lwd=1.0)
+plot(c(t1:t2), output_hbef$Q_a[(t1-1):(t2-1)] - universe$Q[t1:t2], type="l",ylim=c(-1.5,1.5), xlab="Time", ylab="Difference from Q", col="cadetblue4", lwd=2.0)
 abline(h = seq(-1.5,1.5,0.5), v = seq(t1,t2,20), col = "gray80", lwd=0.25, lty = 2)
 
-lines(c(t1:t2),output_hbef$S_me[t1:t2] - universe$Q[t1:t2], col="cadetblue", lwd=1.0)
+lines(c(t1:t2),output_hbef$S_me[t1:t2] - universe$Q[t1:t2], col="lightgoldenrod3", lwd=2.0)
 lines(c(t1:t2),universe$Q[t1:t2] - universe$Q[t1:t2], col="black", lwd=1.5)
 leg.txt<-(c(expression(paste('Q'^'f')),
             expression(paste('S'^'me')),
             expression(paste('Q'))))
 
-leg.col<-c("navajowhite3",
-           "cadetblue", 
+leg.col<-c("cadetblue",
+           "lightgoldenrod3", 
            "black")
-legend("topright", inset=0,leg.txt, col=leg.col, lty=1, lwd=c(1,1,1.5), cex=1.1, pt.cex=1, bg="white")
+legend("topright", inset=0,leg.txt, col=leg.col, lty=1, lwd=c(2,2,1.5), cex=1.1, pt.cex=1, bg="white")
 dev.off()
 
 
 pdf("QfSme_timser_bw.pdf", width=7.48, height=5.51)
-plot(c(t1:t2), output_hbef$Q_a[(t1-1):(t2-1)] - output_hbef$Q_a[t1:t2], ylim=c(-1.5,1.5), type="l", xlab="Time", ylab="Difference from Q", lty=2, lwd=1.0)
+plot(c(t1:t2), output_hbef$Q_a[(t1-1):(t2-1)] - universe$Q[t1:t2], ylim=c(-1.5,1.5), type="l", xlab="Time", ylab="Difference from Q", lty=1, lwd=1.5)
 abline(h = seq(-1.5,1.5,0.5), v = seq(t1,t2,20), col = "gray80", lwd=0.25, lty = 2)
-lines(c(t1:t2),output_hbef$S_me[t1:t2] - universe$Q[t1:t2], lty=1, lwd=1.0)
-lines(c(t1:t2),universe$Q[t1:t2] - universe$Q[t1:t2], col="black", lwd=2.0)
+lines(c(t1:t2),output_hbef$S_me[t1:t2] - universe$Q[t1:t2], lty=2, lwd=1.5)
+lines(c(t1:t2),universe$Q[t1:t2] - universe$Q[t1:t2], col="black", lwd=1.5)
 leg.txt<-(c(expression(paste('Q'^'f')),
             expression(paste('S'^'me')),
             expression(paste('Q'))))
 
-legend("topright", inset=0,leg.txt, lty=c(1,2,1), lwd=c(1,1,2.0), cex=1.1, pt.cex=1, bg="white")
+
+legend("topright", inset=0,leg.txt, lty=c(1,2,1), lwd=c(1.5,1.5,1.5), cex=1.1, pt.cex=1, bg="white")
 dev.off()

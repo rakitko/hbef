@@ -6,13 +6,16 @@
 #
 # This file contains R functions that realize the main algorithms presented in the paper
 #
+#
+# HBEF works here in its simplest form: without the L_o term.
+#
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
 #
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
-## 24 Nov 2015
+## 14 July 2015
 ################################################################################
 # functions.R
 # File with definitions of functions
@@ -106,9 +109,6 @@ create_parameters_universe_world <- function(){
   return(list)
 }
 
-
-#====================================================================
-# This function updates internal parameters from the external ones.
 
 update_parameters <- function(parameters){
   # Internal (derived) parameters to be used in the model equations
@@ -406,13 +406,13 @@ filter_henkf <- function(world, universe, parameters, parameters_henkf){
 
 parameters_hbef <- function(){
   theta         <- 4                # dispersion parameter for the Inverse Gamma distribution P|Pi
-  size_for_MC   <- 100              # size of the Monte-Carlo sample used to estimate the posterir mean m^a
+  size_for_MC   <- 500              # size of the Monte-Carlo sample used to estimate the posterir mean m^a
   phi           <- 20               # dispersion parameter for the Inverse Gamma distribution Pi|Pi^f
   chi           <- 9                # dispersion parameter for the Inverse Gamma distribution Q|Q^f
   mean_A        <- 6.15             # starting value for the analysis-error variance A
   mean_Q        <- 1.64             # starting value for the model-error variance Q
   approximation <- FALSE            # use the approximated posterior (TRUE) or not (FALSE) ?
-  use_L_o       <- FALSE            # multiplication by L_o(B) in the posterior: TRUE if yes.
+  use_L_o       <- FALSE             
   return(data.frame(theta, size_for_MC, phi, chi, mean_A, mean_Q, approximation, use_L_o))
 }
 
@@ -480,8 +480,6 @@ filter_hbef <- function(world, universe, parameters, parameters_hbef){
     S_me[i]     <- universe$Q[i] * mean(epsilon_en[,i]^2)
     S_pe[i]       <- mean(x_en_f[,i]^2)
     v          <- world$X_obs[i] - m_f
-   
-    # FULL
     
     if((parameters_hbef$approximation == FALSE) && (parameters_hbef$use_L_o == TRUE)){
       Pi_tilde[i] <- (parameters_hbef$phi * Pi_f[i] + parameters$N * S_pe[i])/(parameters_hbef$phi + parameters$N)
@@ -489,29 +487,25 @@ filter_hbef <- function(world, universe, parameters, parameters_hbef){
         Q_a[i] <- (parameters_hbef$chi*parameters_hbef$mean_Q + parameters$N*S_me[i])/(parameters_hbef$chi+parameters$N)
         Q_tilde[i] <- parameters_hbef$mean_Q
         Q_f[i] <- parameters_hbef$mean_Q
-        P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,  scale = Pi_tilde[i] * parameters_hbef$theta/2)
-        L_o <- function(P){
-          T <- P + Q_tilde[i] + parameters$std_eta^2
-          result <- 1/sqrt(T) * exp(-v^2/(2*T))
-        }
-        L_o_samp <- L_o(P_samp)
-        P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
       }else{
         Q_f[i] <- Q_a[i-1]
         Q_tilde[i] <- (parameters_hbef$chi*Q_a[i-1] + parameters$N*S_me[i])/(parameters_hbef$chi+parameters$N)
         Q_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = (parameters_hbef$chi+parameters$N)/2 + 1,  scale = Q_tilde[i] * (parameters_hbef$chi+parameters$N)/2)
-        P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,               scale = Pi_tilde[i] * parameters_hbef$theta/2)
-        L_o <- function(X){
-          T <- X + parameters$std_eta^2
+        L_o <- function(Q){
+          T <- Pi_tilde[i] + Q + parameters$std_eta^2
           result <- 1/sqrt(T) * exp(-v^2/(2*T))
         }
-        L_o_samp <- L_o(Q_samp+P_samp)
+        L_o_samp <- L_o(Q_samp)
         Q_a[i] <- L_o_samp%*%Q_samp / sum(L_o_samp)
-        P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
       }                                            
+      P_samp <- rinvgamma(parameters_hbef$size_for_MC, shape = parameters_hbef$theta/2 + 1,  scale = Pi_tilde[i] * parameters_hbef$theta/2)
+      L_o <- function(P){
+        T <- P + Q_tilde[i] + parameters$std_eta^2
+        result <- 1/sqrt(T) * exp(-v^2/(2*T))
+      }
+      L_o_samp <- L_o(P_samp)
+      P_a[i] <- L_o_samp%*%P_samp / sum(L_o_samp)
     }
-    
-    # APPROX
     
     if(parameters_hbef$approximation == TRUE && parameters_hbef$use_L_o == TRUE){
       Pi_tilde[i] <- (parameters_hbef$phi * Pi_f[i] + parameters$N * S_pe[i])/(parameters_hbef$phi + parameters$N)
@@ -526,8 +520,6 @@ filter_hbef <- function(world, universe, parameters, parameters_hbef){
       }
       P_a[i] <- Pi_tilde[i] + 1/parameters_hbef$theta*(Pi_tilde[i]/(Pi_tilde[i]+Q_tilde[i]+parameters$std_eta^2))^2*(v^2-(Pi_tilde[i]+Q_tilde[i]+parameters$std_eta^2))
     }
-    
-    # SIMPLEST 
     
     if(parameters_hbef$use_L_o == FALSE){
       Pi_tilde[i] <- (parameters_hbef$phi * Pi_f[i] + parameters$N * S_pe[i])/(parameters_hbef$phi + parameters$N)

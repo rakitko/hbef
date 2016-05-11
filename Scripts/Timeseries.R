@@ -7,25 +7,20 @@
 # 
 # This script computes a segment of the time series of the following variables:
 # F_k
-# sigma_k
+# Sigma_k
 # V_k
 # B_k for the HBEF
 # B_k for the HBEF and for the EnKF, both with the reference-KF background-error 
-# variances subtracted, 
-# see Fig.1 in the paper
+# variances subtracted, , see Fig.1 in the paper
 #
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
-# Dependencies:
 #
-# Before running this script, you need to execute the script
-# Calculate_data_for_B_evaluation.R,
-# which writes the time series needed here (see the rows with read.table(.) below).
-# 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
-## 16 July 2015
+## 9 July 2015
+## 4 Dec 2015
 ################################################################################
 library(mixAK)
 library(MCMCpack)
@@ -77,7 +72,7 @@ polygon(c(2380,2380,2430,2430),c(-100,100,100,-100), border=NA,col=rgb(95/255,15
 polygon(c(2560,2560,2590,2590),c(-100,100,100,-100), border=NA,col=rgb(95/255,158/255,160/255,0.4))  
 polygon(c(2850,2850,2880,2880),c(-100,100,100,-100), border=NA,col=rgb(240/255,128/255,128/255,0.4))
 lines(c(t1:t2),exp(universe$Sigma[t1:t2]))
-    axis(side=1,seq(2000,3000,200))
+axis(side=1,seq(2000,3000,200))
 axis(side=2,seq(0.5,3.0,0.5))
 box()
 mtext("(b)",side = 4, las=1, adj=-0.5)
@@ -120,6 +115,11 @@ polygon(c(2850,2850,2880,2880),c(-100,100,100,-100), border=NA,col=rgb(240/255,1
 lines(c(t1:t2),(B_enkf[t1:t2]-B_kf[t1:t2]), col = "cadetblue")
 lines(c(t1:t2),(B_hbef[t1:t2]-B_kf[t1:t2]), col = "lightcoral")
 mtext("(e)",side = 4, las=1, adj = -0.5)
+
+leg.txt<-(c("(B_enkf - B_kf)",'(B_hbef - B_kf)'))
+leg.col<-c("cadetblue", "lightcoral")
+legend("topright", inset=0, leg.txt, col=leg.col, lwd=c(1,1), cex=0.9, pt.cex=1, bg="white")
+
 dev.off()
 
 
@@ -201,4 +201,9 @@ polygon(c(2850,2850,2880,2880),c(-100,100,100,-100), border=NA,col=rgb(0.9,0.9,0
 lines(c(t1:t2),(B_enkf[t1:t2]-B_kf[t1:t2]),lwd = 1, col="gray70")
 lines(c(t1:t2),(B_hbef[t1:t2]-B_kf[t1:t2]), lwd = 1, col="gray0")
 mtext("(e)",side = 4, las=1, adj = -0.5)
+
+leg.txt<-(c("(B_enkf - B_kf)",'(B_hbef - B_kf)'))
+leg.col<-c("gray70", "gray0")
+legend("topright", inset=0, leg.txt, col=leg.col, lwd=c(1,1), cex=0.9, pt.cex=1, bg="white")
+
 dev.off()

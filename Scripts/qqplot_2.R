@@ -3,22 +3,16 @@
 ## support, and with no warranty, express or implied, as to its usefulness for
 ## any purpose.
 ## 
-##  qqplot_2.R
-#
+## 
 # This file contains the R script that computes the q-q (quantile-quantile) plot and 
-# the Gaussian (normal) approximation for the conditional distribution x-m^f|B, 
-# see Fig.4(left) in the paper
+# the Gaussian (normal) approximation for the conditional distribution x-x^f|B, 
+# see Fig.4(left)  in the supplement to the paper
 #
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
 # submitted to Physica D.
 #
-# Dependencies:
-#
-# Before running this script, you need to execute the script
-# Calculate_data_for_B_evaluation.R,
-# which writes the time series of X_true and X_f_hbef needed here.
-#  
+# 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
 ## 10 July 2015
 ################################################################################

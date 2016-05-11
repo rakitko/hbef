@@ -3,7 +3,7 @@
 ## support, and with no warranty, express or implied, as to its usefulness for
 ## any purpose.
 ## 
-## dens_Q.R
+## Plot_Q_dens.R
 #
 # This file contains the R script that computes the histogram plot and 
 # the approximating Inverse Gamma density for the distribution Q|Q^f, see plot Fig.2 in the paper

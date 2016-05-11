@@ -3,10 +3,10 @@
 ## support, and with no warranty, express or implied, as to its usefulness for
 ## any purpose.
 ## 
-## dens_Pi.R
+## Plot_Pi_dens.R
 #
 # This file contains the R script that computes the histogram plot and 
-# the approximating Inverse Gamma density for the distribution Pi|Pi^f, see Fig.3(left) in the paper
+# the approximating Inverse Gamma density for the distribution Pi|Pi^f, see plot Fig.3 in the paper
 #
 # ``Hierarchical Bayes Ensemble Kalman Filtering''
 # by Michael Tsyrulnikov and Alexander Rakitko
@@ -15,6 +15,7 @@
 # 
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
 ## 10 July 2015
+## 7 Dec 2015
 ################################################################################
 library(mixAK)
 library(MCMCpack)
@@ -78,7 +79,7 @@ nf<-layout(matrix(c(1,2,3), ncol=1), c(19),c(4.3,3.8,5.8),TRUE)
 #layout.show(nf)
 par(mai=c(0,0.8,0.2,0.2))
 # 1
-plot(1,type="n",ylim=c(0,1.2),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','2',' < ',Pi^'f',' < ','2.1',')')))
+plot(1,type="n",ylim=c(0,1.2),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','2',' < ',P^'f',' < ','2.1',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,1.2,0.2),labels=c("",seq(0.2,1,0.2),""))
 box()
@@ -92,7 +93,7 @@ legend("topright", inset=0,leg.txt,col=leg.col, lty=c(1,2), lwd=2, cex=1.3, pt.c
 
 par(mai=c(0,0.8,0,0.2))
 # 2
-plot(1,type="n",ylim=c(0,0.5),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','5.9',' < ',Pi^'f',' < ','6.1',')')))
+plot(1,type="n",ylim=c(0,0.5),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','5.9',' < ',P^'f',' < ','6.1',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,0.5,0.1),labels=c("",seq(0.1,0.5,0.1)))
 box()
@@ -107,7 +108,7 @@ legend("topright", inset=0,leg.txt,col=leg.col, lty=c(1,2), lwd=2, cex=1.3, pt.c
 par(mai=c(0.8,0.8,0,0.2))
 
 # 3
-plot(1,type="n",ylim=c(0,0.3),xlim=c(0,30), axes=FALSE,xlab=expression(paste(Pi)), ylab=expression(paste('p','(',Pi,' | ','10',' < ',Pi^'f',' < ','12',')')))
+plot(1,type="n",ylim=c(0,0.3),xlim=c(0,30), axes=FALSE,xlab=expression(paste(Pi)), ylab=expression(paste('p','(',Pi,' | ','10',' < ',P^'f',' < ','12',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,0.3,0.05),labels=seq(0,0.3,0.05))
 box()
@@ -128,7 +129,7 @@ nf<-layout(matrix(c(1,2,3), ncol=1), c(19),c(4.3,3.8,5.8),TRUE)
 #layout.show(nf)
 par(mai=c(0,0.8,0.2,0.2))
 # 1
-plot(1,type="n",ylim=c(0,1.2),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','2',' < ',Pi^'f',' < ','2.1',')')))
+plot(1,type="n",ylim=c(0,1.2),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','2',' < ',P^'f',' < ','2.1',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,1.2,0.2),labels=c("",seq(0.2,1,0.2),""))
 box()
@@ -142,7 +143,7 @@ legend("topright", inset=0,leg.txt, lty=c(1,2), lwd=2, cex=1.3, pt.cex=1,bg="whi
 
 par(mai=c(0,0.8,0,0.2))
 # 2
-plot(1,type="n",ylim=c(0,0.5),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','5.9',' < ',Pi^'f',' < ','6.1',')')))
+plot(1,type="n",ylim=c(0,0.5),xlim=c(0,30),axes=FALSE,xlab=expression(paste('B'['true'])), ylab=expression(paste('p','(',Pi,' | ','5.9',' < ',P^'f',' < ','6.1',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,0.5,0.1),labels=c("",seq(0.1,0.5,0.1)))
 box()
@@ -157,7 +158,7 @@ legend("topright", inset=0,leg.txt, lty=c(1,2), lwd=2, cex=1.3, pt.cex=1, bg="wh
 par(mai=c(0.8,0.8,0,0.2))
 
 # 3
-plot(1,type="n",ylim=c(0,0.3),xlim=c(0,30), axes=FALSE,xlab=expression(paste(Pi)), ylab=expression(paste('p','(',Pi,' | ','10',' < ',Pi^'f',' < ','12',')')))
+plot(1,type="n",ylim=c(0,0.3),xlim=c(0,30), axes=FALSE,xlab=expression(paste(Pi)), ylab=expression(paste('p','(',Pi,' | ','10',' < ',P^'f',' < ','12',')')))
 axis(side=1,seq(0,50,5))
 axis(side=2,seq(0,0.3,0.05),labels=seq(0,0.3,0.05))
 box()

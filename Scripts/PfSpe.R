@@ -3,7 +3,7 @@
 ## support, and with no warranty, express or implied, as to its usefulness for
 ## any purpose.
 ## 
-## PfSpe_RMSbias.R
+## PfSpe.R
 #
 # This file contains the R script that plots the dependencies of
 # RMS(bias(Pi^f-P)) and RMS(bias(S^{pe} - P)) on the number of independent runs L,
@@ -17,7 +17,7 @@
 #
 # Before running this script, you need to execute the script
 # Calculate_data_for_B_evaluation.R,
-# which writes the time series of P_f and S_pe needed here.
+# which writes the time series of Pi_f and S_pe needed here.
 #
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
 ## 12 July 2015
@@ -89,7 +89,7 @@ for(j in (1:length(L_range))){
   arr_s[j] <- rms(mean_exact_S_pe[t1:t2])
 }
 
-pdf("PfSpe_RMSbias.pdf", width=5.51, height=5.51)
+pdf("PfSpe.pdf", width=5.51, height=5.51)
 plot(L_range,arr_f, type="n",ylim=c(0,5), ylab="RMS(bias)",xlab="Number of realizations (L)",xaxt='n')
 axis(1, at=L_range)
 
@@ -101,7 +101,7 @@ lines(L_range, arr_f_true, lwd=3, col="lightcoral", lty=1)
 lines(L_range, arr_s_true, lwd=4, col='darkolivegreen3', lty=1)
 
 
-leg.txt <- c(expression(paste('P'^'f',' vs. ',P)), expression(paste('S'^'pe',' vs. ',P)), expression(paste('P'^'f',' vs. ',Pi)), expression(paste('S'^'pe',' vs. ',Pi)))
+leg.txt <- c(expression(paste(Pi^'f',' vs. ',P)), expression(paste('S'^'pe',' vs. ',P)), expression(paste(Pi^'f',' vs. ',Pi)), expression(paste('S'^'pe',' vs. ',Pi)))
 
 leg.col<-c( "lightcoral", "darkolivegreen3", "navajowhite3","cadetblue")
 legend("topright", inset=0,leg.txt,col=leg.col, lwd=c(3,3,3,3), pt.lwd=3, cex=1.1, pt.cex=1, bg="white")
@@ -109,7 +109,7 @@ dev.off()
 
 
 
-pdf("PfSpe_RMSbias_bw.pdf", width=5.51, height=5.51)
+pdf("PfSpe_bw.pdf", width=5.51, height=5.51)
 plot(L_range,arr_f, type="n",ylim=c(0,5), ylab="RMS(bias)",xlab="Number of realizations (L)",xaxt='n')
 axis(1, at=L_range)
 
@@ -121,7 +121,7 @@ lines(L_range, arr_f_true, lwd=1.5,  lty=1)
 lines(L_range, arr_s_true, lwd=3,  lty=4)
 
 
-leg.txt <- c(expression(paste('P'^'f',' vs. ',P)), expression(paste('S'^'pe',' vs. ',P)), expression(paste('P'^'f',' vs. ',Pi)), expression(paste('S'^'pe',' vs. ',Pi)))
+leg.txt <- c(expression(paste(Pi^'f',' vs. ',P)), expression(paste('S'^'pe',' vs. ',P)), expression(paste(Pi^'f',' vs. ',Pi)), expression(paste('S'^'pe',' vs. ',Pi)))
 
 legend("topright", inset=0,leg.txt, lty=c(1,4,1,2), lwd=c(1.5,3,3,3), pt.lwd=3, cex=1.1, pt.cex=1, bg="white")
 dev.off()

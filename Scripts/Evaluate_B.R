@@ -62,7 +62,7 @@ for(i in (1:L)){
   X_f_enkf_mat[i,]  <- X_f_enkf[((1+parameters$time*(i-1)):(parameters$time*i)),1]
   X_f_henkf_mat[i,] <- X_f_henkf[((1+parameters$time*(i-1)):(parameters$time*i)),1]
   X_f_hbef_mat[i,]  <- X_f_hbef[((1+parameters$time*(i-1)):(parameters$time*i)),1]
-
+  
   B_a_kf_mat[i,]    <- B_a_kf[((1+parameters$time*(i-1)):(parameters$time*i)),1]
   B_a_var_mat[i,]   <- B_a_var[((1+parameters$time*(i-1)):(parameters$time*i)),1]
   B_a_enkf_mat[i,]  <- B_a_enkf[((1+parameters$time*(i-1)):(parameters$time*i)),1]

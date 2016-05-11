@@ -14,7 +14,8 @@
 # submitted to Physica D.
 #
 ## Authors: Alexander Rakitko  (rakitko@gmail.com) and Michael Tsyrulnikov 
-## 23 Nov 2015
+## 27 Sep 2015
+## 2 Dec 2015
 ################################################################################
 library(mixAK)
 library(MCMCpack)
@@ -113,7 +114,7 @@ param_hbef$mean_A   <- mean(output_kf$A)
 param_hbef$mean_Q   <- mean(universe$Q)
 output_hbef_approx  <- filter_hbef(world, universe, parameters, param_hbef)
 
-# HBEF-simplest: No L_o
+# HBEF No L_o
 
 message(" ")
 message("HBEF No L_o")
