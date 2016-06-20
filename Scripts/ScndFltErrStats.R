@@ -7,7 +7,7 @@
 #
 # This file contains the R script that computes and plots time series 
 # of the biases (along with their bootstrap confidence intervals) 
-in the sample variances $S_k$ of the forecast-error ensemble 
+# in the sample variances $S_k$ of the forecast-error ensemble 
 # for the EnKF and the HBEF.
 # The errors are computed w.r.t.the estimated true $B_k$.
 #
