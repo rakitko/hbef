@@ -13,8 +13,9 @@
 #
 # see Fig.1 in the paper
 #
-# Before running this script, you need to execute the script Evaluate_B.R,
-# which writes the time series of V_k and B_k_true for all the filters needed here.
+# Before running this script, you need to execute the scripts
+# Calculate_data_for_B_evaluation.R and, then, Evaluate_B.R,
+# which write the time series of V_k and B_k_true for all the filters needed here.
 #
 # ``A Hierarchical Bayes Ensemble Kalman Filter''
 # by Michael Tsyrulnikov and Alexander Rakitko
