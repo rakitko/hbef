@@ -3,9 +3,11 @@ The Hierarchical Bayes Ensemble Kalman Filter.
 
 The R package HBEF allows one to carry out numerical experiments with the Hierarchical Bayes Ensemble Kalman Filter (HBEF).
 The HBEF is proposed and described in the paper
-``Hierarchical Bayes Ensemble Kalman Filtering''
-by Michael Tsyrulnikov and Alexander Rakitko
-submitted to Physica D.
+
+Michael Tsyrulnikov and Alexander Rakitko,
+A Hierarchical Bayes ensemble Kalman Filter. 
+Physica D (Nonlinear Phenomena), 2017, v.338, 1-16, doi:10.1016/j.physd.2016.07.009.
+
 With this package,  one can reproduce all the results reported in the paper.
 
 The paper proposes a new kind of ensemble Kalman Filter that allows for the uncertainty in the 
